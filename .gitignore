@@ -13,9 +13,6 @@ tmp/*
 /var/mysql_data/*
 /var/mysql_data/**
 
-/project/*
-!/project/.gitkeep
-
 /var/**
 !/var/
 !/var/**/
