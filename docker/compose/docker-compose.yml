@@ -10,6 +10,7 @@ services:
         - ../../:/php_sandbox
 
     php:
+      user: "1000:33"
       build: ../images/php
       links:
         - mysql
