@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/homepage', function () {
+    return view('app');
+});
+
 Route::get('/book/{id}', function ($id) {
     return $id;
 });
