@@ -10,15 +10,16 @@
 
     @each('components.todo-item-card', $todos, 'todo')
 
-    <!--
-    @forelse ($todos as $todo)
-        <x-todo-item-card :todo="$todo" />
-    @empty
-        <div class="alert alert-secondary">
-            Nejsou tu žádná todo.
-        </div>
-    @endforelse
-    -->
+    @{{--
+        @forelse ($todos as $todo)
+            <x-todo-item-card :todo="$todo" />
+        @empty
+            <div class="alert alert-secondary">
+                Nejsou tu žádná todo.
+            </div>
+        @endforelse
+    --}}
+
 
 </div>
 

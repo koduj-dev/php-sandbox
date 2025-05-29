@@ -29,13 +29,13 @@ class TodoController extends Controller
         $todo->completed_at = now();
         $todo->save();
 
-        return redirect()->route('todos.index')->with('success', 'ok');
+        return redirect()->route('todos.index')->with('success', 'Todo dokončeno.');
     }
 
     public function delete(Todo $todo) {
         $todo->delete();
 
-        return redirect()->route('todos.index');
+        return redirect()->route('todos.index')->with('danger', 'Smazáno.');
     }
 
 
