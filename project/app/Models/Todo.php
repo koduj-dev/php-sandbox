@@ -16,7 +16,7 @@ class Todo extends Model
     ];
 
     protected $casts = [
-        'completed_at' => 'date'
+        'completed_at' => 'datetime'
     ];
 
     public function user() {
