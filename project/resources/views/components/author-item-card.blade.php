@@ -24,6 +24,10 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-muted">Upraveno: {{ $author->updated_at->diffForHumans() }} <a href="{{ route('authors.edit', ['author' => $author]) }}" class="btn btn-sm btn-outline-danger">Upravit</a></div>
+        <div class="card-footer text-muted">Upraveno: {{ $author->updated_at->diffForHumans() }} 
+            @role('AUTHOR_ADMIN')
+            <a href="{{ route('authors.edit', ['author' => $author]) }}" class="btn btn-sm btn-outline-danger">Upravit</a>
+            @endrole
+        </div>
     </div>
 </div>

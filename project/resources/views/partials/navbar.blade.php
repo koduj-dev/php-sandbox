@@ -9,9 +9,11 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('app.dashboard') }}">Home</a>
           </li>
+          @role('TODO')
           <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('todos.*') ? 'active text-danger' : '' }}" href="{{ route('todos.index') }}">Todo list</a>
           </li>
+          @endrole
         @endauth
 
         <li class="nav-item">

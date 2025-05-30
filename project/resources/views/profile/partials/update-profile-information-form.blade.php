@@ -24,6 +24,19 @@
         </div>
 
         <div>
+            <x-input-label for="roles" :value="__('Role')" />
+            <select name="roles[]" id="roles" class="mt-1 block w-full" multiple>
+                @foreach (\App\Enums\UserRole::cases() as $role)
+                    <option value="{{ $role->value }}"
+                        @selected(in_array($role->value, old('roles', $user->roles ?? [])))
+                    >
+                        {{ $role->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

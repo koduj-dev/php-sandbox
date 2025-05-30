@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'roles'
     ];
 
     /**
@@ -43,10 +46,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'roles' => 'array'
         ];
     }
 
     public function todos() {
         return $this->hasMany(Todo::class);
+    }
+
+    public function hasRole(UserRole $role): bool {
+        return in_array($role->value, $this->roles);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\UserRole;
 use App\Http\Controllers\TodoController;
-use App\Models\Todo;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('todos')
     ->name('todos.')
+    ->middleware(['auth', 'role-access-control:' . UserRole::Todo->value])
     ->controller(TodoController::class)
     ->group(function () {
 
