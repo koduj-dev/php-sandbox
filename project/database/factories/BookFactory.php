@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Author;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
+ */
+class BookFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'title' => fake()->sentence(6, true),
+            'isbn' => fake()->isbn13(),
+            'author_id' => Author::inRandomOrder()->first()->id,
+            'description' => fake()->paragraph(10, true),
+            'cover_url' => 'https://picsum.photos/seed/'.fake()->uuid() .'/400/600',
+            'published_at' => fake()->year(),
+        ];
+    }
+}
