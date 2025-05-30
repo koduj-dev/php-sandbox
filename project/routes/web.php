@@ -1,20 +1,24 @@
 <?php
 
-use App\Http\Controllers\TodoController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/homepage', function () {
-    return view('app');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', function() {
+        return view('app.home');
+    })->name('app.dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/book/{id}', function ($id) {
-    return $id;
-});
-
-Route::fallback(function () {
-    return "ERR 404 " . request()->getUri();
-});
+require __DIR__.'/auth.php';
