@@ -3,6 +3,8 @@
 @section('title', 'Seznam knih')
 
 @section('content')
+    @include('app.books.filter')
+
     @role('BOOK_ADMIN')
     <div class="mb-4">
         <a href="{{ route('books.create') }}" class="btn btn-outline-warning">Vytvořit knihu</a>
@@ -13,7 +15,7 @@
         @forelse($books as $book)
             <x-book-item-card :book="$book" />
         @empty
-            
+
         @endforelse
     </div>
 

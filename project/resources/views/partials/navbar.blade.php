@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="{{ route('app.entry') }}">LarApka</a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
+
         @auth
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('app.dashboard') }}">Home</a>
+            <a class="nav-link {{ request()->routeIs('app.dashboard') ? 'active text-danger' : '' }}" href="{{ route('app.dashboard') }}">Home</a>
           </li>
           @role('TODO')
           <li class="nav-item">
@@ -17,10 +17,10 @@
         @endauth
 
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('authors.*') ? 'active' : '' }}" href="{{ route('authors.index') }}">Authoři</a>
+          <a class="nav-link {{ request()->routeIs('authors.*') ? 'active text-danger' : '' }}" href="{{ route('authors.index') }}">Authoři</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('books.*') ? 'active' : '' }}" href="{{ route('books.index') }}">Knihy</a>
+          <a class="nav-link {{ request()->routeIs('books.*') ? 'active text-danger' : '' }}" href="{{ route('books.index') }}">Knihy</a>
         </li>
       </ul>
 

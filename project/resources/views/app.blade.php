@@ -9,11 +9,11 @@
     </head>
     <body>
         @include('partials.navbar')
-        @include('partials.alerts')
 
         <section class="p-3">
             <div class="container-fluid">
                 <h1 class="mb-4">@yield('title', 'Placeholder pro titulek šablony')</h1>
+                @include('partials.alerts')
 
                 @yield('content', 'Placeholder pro obsah šablony')
             </div>

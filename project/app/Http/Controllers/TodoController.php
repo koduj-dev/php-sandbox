@@ -7,19 +7,20 @@ use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
     function __invoke()
     {
-        $todos = Todo::orderByDesc('id')->get();
+        $todos = Todo::where('user_id', Auth::user()->id)->orderByDesc('id')->get();
 
         return view('app.todos', compact('todos'));
     }
 
     public function store(StoreTodoRequest $request) {
         $todo = Todo::make($request->validated());
-        $todo->user_id = User::inRandomOrder()->first()->id;
+        $todo->user_id = Auth::user()->id;
         $todo->save();
 
         return redirect()->back()->with('success', 'Úkol byl vytvořen');
@@ -46,10 +47,10 @@ class TodoController extends Controller
 
 
 
-    
+
     public function byUser(User $user) {
         $todos = Todo::with('user')->whereBelongsTo($user)->get();
-        
+
         return $this->list($todos);
     }
 

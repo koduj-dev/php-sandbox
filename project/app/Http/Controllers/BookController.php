@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use App\Models\Author;
+use App\Services\BookService;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -13,13 +14,17 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(BookService $bookService)
     {
-        $books = Book::paginate(5);
+        $authors = Author::with('books')->orderBy('name')->get();
+        $books = $bookService->getSearchBuilder(
+            request('search'),
+            request('author_id')
+        )->paginate(10)->withQueryString();
 
-        Paginator::useBootstrapFive();
+        Paginator::useBootstrap();
 
-        return view('app.books', compact('books'));
+        return view('app.books', compact('books', 'authors'));
     }
 
     /**

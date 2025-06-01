@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
+use App\Services\AuthorService;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -11,11 +12,20 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(AuthorService $authorService)
     {
-        $authors = Author::get();
+        $genre = (request('genre'));
+        if ($genre) {
+            $authors = Author::query()->where('primary_genre', $genre)
+                ->orderBy('name')
+                ->get();
+        } else {
+            $authors = Author::orderBy('name')->get();
+        }
 
-        return view('app.authors', compact('authors'));
+        $genres = $authorService->getGenres();
+
+        return view('app.authors', compact('authors', 'genres'));
     }
 
     /**
