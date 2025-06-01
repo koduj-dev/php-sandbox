@@ -21,7 +21,7 @@ services:
         - "host.docker.internal:host-gateway"
 
     mysql:
-      user: "999:999"
+      # user: "999:999"
       image: mysql:8.0.40
       environment:
         - MYSQL_ALLOW_EMPTY_PASSWORD=1
