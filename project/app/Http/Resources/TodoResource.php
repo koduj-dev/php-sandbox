@@ -17,6 +17,8 @@ class TodoResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'content' => $this->content,
+            'completed_at' => $this->completed_at,
             'user' => $this->user
         ];
     }

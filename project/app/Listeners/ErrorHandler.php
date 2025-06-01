@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Http\Response;
@@ -26,8 +27,27 @@ class ErrorHandler extends Handler
 
         if ($exception instanceof AuthenticationException) {
             return response()->json([
-                'message' => 'No login information.'
-            ], 401);
+                'message' => 'Invalid login information.'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if ($exception instanceof AuthorizationException) {
+            return response()->json([
+                'message' => 'Unauthorized.'
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            return response()->json([
+                'message' => 'Validation error.',
+                'validation_messages' => $exception->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($exception instanceof \InvalidArgumentException) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], Response::HTTP_CONFLICT);
         }
 
         dd($exception);

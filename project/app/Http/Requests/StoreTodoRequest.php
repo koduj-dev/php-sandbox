@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreTodoRequest extends FormRequest
 {
@@ -13,9 +14,12 @@ class StoreTodoRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isPatch = request()->getMethod() === Request::METHOD_PATCH;
+
         return [
-            'title' => 'required|string|min:3|max:100',
-            'content' => 'required|string'
+            'title' => ($isPatch ? 'sometimes|' : '') .'required|string|min:3|max:100',
+            'content' => ($isPatch ? 'sometimes|' : '') .'required|string',
+            'completed_at' => ($isPatch ? 'sometimes|' : '') .'nullable|date|after:created_at'
         ];
     }
 }
